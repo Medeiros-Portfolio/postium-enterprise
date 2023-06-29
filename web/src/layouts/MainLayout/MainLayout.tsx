@@ -9,7 +9,7 @@ type MainLayoutProps = {
 }
 
 const MainLayout = ({ children }: MainLayoutProps) => {
-  const { currentUser, isAuthenticated, logOut } = useAuth()
+  const { currentUser, isAuthenticated, logOut, hasRole } = useAuth()
   const [showLateralMenu, setShowLateralMenu] = useState(false)
   const toggleLateralMenu = () => setShowLateralMenu(!showLateralMenu)
 
@@ -70,6 +70,16 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                   About
                 </Link>
               </li>
+              {isAuthenticated && hasRole('admin') ? (
+                <li className="flex">
+                  <Link
+                    to={routes.posts()}
+                    className="-mb-1 flex items-center border-b-2 px-4 dark:border-transparent"
+                  >
+                    Publish
+                  </Link>
+                </li>
+              ) : null}
             </ul>
           </div>
           <div className="hidden flex-shrink-0 items-center space-x-3 lg:flex">
