@@ -33,12 +33,14 @@ const Routes = () => {
         <Route path="/signup" page={SignupPage} name="signup" />
         <Route path="/forgot-password" page={ForgotPasswordPage} name="forgotPassword" />
         <Route path="/reset-password" page={ResetPasswordPage} name="resetPassword" />
-        <Set wrap={ScaffoldLayout} title="Posts" titleTo="posts" buttonLabel="New Post" buttonTo="newPost">
-          <Route path="/posts/new" page={PostNewPostPage} name="newPost" />
-          <Route path="/posts/{id:Int}/edit" page={PostEditPostPage} name="editPost" />
-          <Route path="/posts/{id:Int}" page={PostPostPage} name="post" />
-          <Route path="/posts" page={PostPostsPage} name="posts" />
-        </Set>
+        <Private unauthenticated="login" roles="admin">
+          <Set wrap={ScaffoldLayout} title="Posts" titleTo="posts" buttonLabel="New Post" buttonTo="newPost">
+            <Route path="/posts/new" page={PostNewPostPage} name="newPost" />
+            <Route path="/posts/{id:Int}/edit" page={PostEditPostPage} name="editPost" />
+            <Route path="/posts/{id:Int}" page={PostPostPage} name="post" />
+            <Route path="/posts" page={PostPostsPage} name="posts" />
+          </Set>
+        </Private>
       </Set>
       <Route notfound page={NotFoundPage} />
     </Router>
