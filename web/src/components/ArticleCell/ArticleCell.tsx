@@ -49,7 +49,7 @@ export const Success = ({ article }: CellSuccessProps<ArticleCellProps>) => {
 
   return (
     <>
-      <div className="mx-auto p-5 dark:bg-gray-800 dark:text-gray-100 sm:p-10 md:p-16">
+      <div className="mx-auto pb-0 pt-5 dark:bg-gray-800 dark:text-gray-100 sm:p-8 md:p-10">
         <div className="mx-auto flex max-w-3xl flex-col overflow-hidden rounded">
           <ArticleImage imageURL={imageURL} />
           <div className="m-4 mx-auto -mt-16 space-y-6 p-6 pb-12 dark:bg-gray-900 sm:mx-12 sm:px-10 lg:max-w-2xl lg:rounded-md">
