@@ -5,6 +5,7 @@ import {
   TextAreaField,
   useForm,
 } from '@redwoodjs/forms'
+import { routes } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import {
   Toaster,
@@ -18,6 +19,7 @@ import {
   CreateCommentMutationVariables,
 } from '../../../types/graphql'
 import { useAuth } from '../../auth'
+import { QUERY as CommentsQuery } from '../CommentsCell'
 
 const CREATE_COMMENT = gql`
   mutation CreateCommentMutation($input: CreateCommentInput!) {
@@ -44,6 +46,7 @@ const CommentForm = ({ postId }) => {
       toast.success('Thank you for your comment!')
       formMethods.reset()
     },
+    refetchQueries: [{ query: CommentsQuery, variables: { postId } }],
   })
 
   const onSubmit = (data: CommentFormValues) => {
@@ -112,7 +115,7 @@ const CommentForm = ({ postId }) => {
             <h3 className="text-center text-3xl font-semibold">Comment</h3>
             <p className="text-center text-sm text-gray-500">
               Please{' '}
-              <a href="/login" className="text-violet-400">
+              <a href={routes.login()} className="text-violet-400">
                 login
               </a>{' '}
               to comment.

@@ -49,7 +49,6 @@ const ContactPage = () => {
 
   const onSubmit: SubmitHandler<ContactFormValues> = (data) => {
     create({ variables: { input: data } })
-    console.log(data)
   }
 
   const formMethods = useForm({ mode: 'onBlur' })
