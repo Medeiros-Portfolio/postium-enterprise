@@ -18,7 +18,7 @@ const Comment = (comment: CommentProps) => {
             />
           </div>
           <div>
-            <h4 className="font-bold">{comment.name}</h4>
+            <h4 className="font-bold">{comment.name.split('@')[0]}</h4>
             <span className="text-xs dark:text-gray-400">
               {comment.createdAt}
             </span>
