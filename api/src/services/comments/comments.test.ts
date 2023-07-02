@@ -1,6 +1,12 @@
 import type { Comment } from '@prisma/client'
 
-import { comments } from './comments'
+import {
+  comments,
+  comment,
+  createComment,
+  updateComment,
+  deleteComment,
+} from './comments'
 import type { StandardScenario } from './comments.scenarios'
 
 // Generated boilerplate tests do not account for all circumstances
@@ -14,5 +20,44 @@ describe('comments', () => {
     const result = await comments()
 
     expect(result.length).toEqual(Object.keys(scenario.comment).length)
+  })
+
+  scenario('returns a single comment', async (scenario: StandardScenario) => {
+    const result = await comment({ id: scenario.comment.one.id })
+
+    expect(result).toEqual(scenario.comment.one)
+  })
+
+  scenario('creates a comment', async (scenario: StandardScenario) => {
+    const result = await createComment({
+      input: {
+        postId: scenario.comment.two.postId,
+        name: 'String',
+        message: 'String',
+      },
+    })
+
+    expect(result.postId).toEqual(scenario.comment.two.postId)
+    expect(result.name).toEqual('String')
+    expect(result.message).toEqual('String')
+  })
+
+  scenario('updates a comment', async (scenario: StandardScenario) => {
+    const original = (await comment({ id: scenario.comment.one.id })) as Comment
+    const result = await updateComment({
+      id: original.id,
+      input: { name: 'String2' },
+    })
+
+    expect(result.name).toEqual('String2')
+  })
+
+  scenario('deletes a comment', async (scenario: StandardScenario) => {
+    const original = (await deleteComment({
+      id: scenario.comment.one.id,
+    })) as Comment
+    const result = await comment({ id: original.id })
+
+    expect(result).toEqual(null)
   })
 })

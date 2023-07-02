@@ -9,7 +9,8 @@ export const schema = gql`
   }
 
   type Query {
-    comments(postId: Int): [Comment!]! @skipAuth
+    comments(postId: Int!): [Comment!]! @requireAuth
+    comment(id: Int!): Comment @requireAuth
   }
 
   input CreateCommentInput {
@@ -22,5 +23,11 @@ export const schema = gql`
     postId: Int
     name: String
     message: String
+  }
+
+  type Mutation {
+    createComment(input: CreateCommentInput!): Comment! @requireAuth
+    updateComment(id: Int!, input: UpdateCommentInput!): Comment! @requireAuth
+    deleteComment(id: Int!): Comment! @requireAuth
   }
 `

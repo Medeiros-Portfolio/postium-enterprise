@@ -25,7 +25,6 @@ export const Failure = ({ error }: CellFailureProps) => (
 
 export const Success = ({ comments }: CellSuccessProps<CommentsQuery>) => {
   return (
-    // Add a heading writen 'Comments' above the list of comments:
     <>
       <h2 className="py-4 text-2xl font-semibold md:ml-24 lg:ml-32">
         Comments

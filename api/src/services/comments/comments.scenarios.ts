@@ -11,7 +11,7 @@ export const standard = defineScenario<Prisma.CommentCreateArgs>({
           create: {
             title: 'String',
             body: 'String',
-            updatedAt: '2023-06-30T01:32:14.713Z',
+            updatedAt: '2023-07-02T17:55:12.505Z',
           },
         },
       },
@@ -24,7 +24,7 @@ export const standard = defineScenario<Prisma.CommentCreateArgs>({
           create: {
             title: 'String',
             body: 'String',
-            updatedAt: '2023-06-30T01:32:14.713Z',
+            updatedAt: '2023-07-02T17:55:12.505Z',
           },
         },
       },
