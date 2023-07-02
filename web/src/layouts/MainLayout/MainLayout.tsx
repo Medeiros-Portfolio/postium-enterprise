@@ -37,11 +37,11 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                 />
               </svg>
             </a>
-            <ul className="hidden items-stretch space-x-3 lg:flex">
+            <ul className="hidden items-stretch space-x-3 px-3 font-sans text-lg font-semibold lg:flex">
               <li className="flex">
                 <Link
                   to={routes.home()}
-                  className="-mb-1 flex items-center border-b-2 px-4 dark:border-transparent"
+                  className="-mb-1 flex items-center border-b-2 px-4 hover:text-violet-400 dark:border-transparent"
                 >
                   Home
                 </Link>
@@ -49,7 +49,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
               <li className="flex">
                 <Link
                   to={routes.articles()}
-                  className="-mb-1 flex items-center border-b-2 px-4 dark:border-transparent"
+                  className="-mb-1 flex items-center border-b-2 px-4 hover:text-violet-400 dark:border-transparent"
                 >
                   Articles
                 </Link>
@@ -57,7 +57,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
               <li className="flex">
                 <Link
                   to={routes.contact()}
-                  className="-mb-1 flex items-center border-b-2 px-4 dark:border-transparent"
+                  className="-mb-1 flex items-center border-b-2 px-4 hover:text-violet-400 dark:border-transparent"
                 >
                   Contact
                 </Link>
@@ -65,7 +65,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
               <li className="flex">
                 <Link
                   to={routes.about()}
-                  className="-mb-1 flex items-center border-b-2 px-4 dark:border-transparent"
+                  className="-mb-1 flex items-center border-b-2 px-4 hover:text-violet-400 dark:border-transparent"
                 >
                   About
                 </Link>
@@ -74,7 +74,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                 <li className="flex">
                   <Link
                     to={routes.posts()}
-                    className="-mb-1 flex items-center border-b-2 px-4 dark:border-transparent"
+                    className="-mb-1 flex items-center border-b-2 px-4 hover:text-violet-400 dark:border-transparent"
                   >
                     Publish
                   </Link>
@@ -116,7 +116,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                 </span>
                 <button
                   onClick={() => logOut()}
-                  className="rounded px-8 py-3 font-semibold dark:bg-violet-800 dark:text-gray-900"
+                  className="rounded px-8 py-3 font-semibold hover:text-gray-400 dark:bg-violet-800 dark:text-gray-900"
                 >
                   Logout
                 </button>
