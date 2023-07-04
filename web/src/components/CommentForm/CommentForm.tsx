@@ -1,4 +1,5 @@
 import {
+  FieldError,
   Form,
   FormError,
   Submit,
@@ -94,12 +95,20 @@ const CommentForm = ({ postId }) => {
               className="flex w-full flex-col"
               formMethods={formMethods}
             >
-              <FormError error={error} />
+              <FormError
+                error={error}
+                titleStyle={{ opacity: 0 }}
+                listItemClassName="text-red-600 dark:text-red-400"
+              />
               <TextAreaField
                 name="commentInput"
                 className="resize-none rounded-md p-4 dark:bg-gray-900 dark:text-gray-100"
                 placeholder="I think that..."
+                validation={{
+                  required: true,
+                }}
               />
+              <FieldError name="commentInput" className="text-red-600" />
               <Submit
                 disabled={loading}
                 className=" my-3 max-w-xs rounded-md py-4 font-semibold dark:bg-violet-400 dark:text-gray-900"
@@ -110,7 +119,7 @@ const CommentForm = ({ postId }) => {
           </div>
         </div>
       ) : (
-        <div className="flex max-w-xl flex-col rounded-xl p-8 shadow-sm dark:bg-gray-900 dark:text-gray-100 lg:p-12">
+        <div className="mx-auto flex max-w-xl flex-col rounded-xl p-8 shadow-sm dark:bg-gray-900 dark:text-gray-100 lg:p-12">
           <div className="flex w-full flex-col items-center">
             <h3 className="text-center text-3xl font-semibold">Comment</h3>
             <p className="text-center text-sm text-gray-500">

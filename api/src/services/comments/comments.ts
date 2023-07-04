@@ -4,6 +4,8 @@ import type {
   CommentRelationResolvers,
 } from 'types/graphql'
 
+import { validate } from '@redwoodjs/api'
+
 import { db } from 'src/lib/db'
 
 export const comments: QueryResolvers['comments'] = ({ postId }) => {
@@ -21,6 +23,9 @@ export const comment: QueryResolvers['comment'] = ({ id }) => {
 export const createComment: MutationResolvers['createComment'] = ({
   input,
 }) => {
+  validate(input.message, 'commentInput', {
+    presence: { message: 'Comment cannot be empty', allowEmptyString: false },
+  })
   return db.comment.create({
     data: input,
   })
