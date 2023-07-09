@@ -21,9 +21,6 @@ export const QUERY = gql`
 
 interface ArticleCellProps extends CellSuccessProps<FindArticleQuery> {
   id: number
-  User: {
-    name: string
-  }
 }
 
 export const Loading = () => (
