@@ -1,20 +1,41 @@
-import type { Prisma, Post } from '@prisma/client'
-import type { ScenarioData } from '@redwoodjs/testing/api'
+import { Prisma } from '@prisma/client'
+
+import { ScenarioData } from '@redwoodjs/testing/api'
+
+import { Post } from '../../../types/graphql'
 
 export const standard = defineScenario<Prisma.PostCreateArgs>({
   post: {
-    one: {
+    first: {
       data: {
         title: 'String',
         body: 'String',
-        updatedAt: '2023-07-08T22:58:22.694Z',
+        public: true,
+        User: {
+          create: {
+            name: 'String1',
+            email: 'String1',
+            roles: ['admin'],
+            hashedPassword: 'String',
+            salt: 'String',
+          },
+        },
       },
     },
-    two: {
+    second: {
       data: {
         title: 'String',
         body: 'String',
-        updatedAt: '2023-07-08T22:58:22.694Z',
+        public: true,
+        User: {
+          create: {
+            name: 'String2',
+            email: 'String2',
+            roles: ['admin'],
+            hashedPassword: 'String',
+            salt: 'String',
+          },
+        },
       },
     },
   },
