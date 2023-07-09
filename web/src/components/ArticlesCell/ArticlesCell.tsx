@@ -93,7 +93,7 @@ export const Success = ({ articles }: CellSuccessProps<ArticlesQuery>) => {
           >
             <div className="container mx-auto max-w-4xl rounded-lg px-10 py-6 shadow-sm dark:bg-gray-900">
               <div className="flex flex-col items-start justify-between space-y-2">
-                {articles[item.id - 1].public && (
+                {!item.public && (
                   <span className="rounded px-2 py-1 font-bold dark:bg-violet-400 dark:text-gray-900">
                     Premium
                   </span>
@@ -116,16 +116,14 @@ export const Success = ({ articles }: CellSuccessProps<ArticlesQuery>) => {
                       clipRule="evenodd"
                     ></path>
                   </svg>
-                  <span className="self-center text-sm">
-                    {articles[item.id - 1].User.name}
-                  </span>
+                  <span className="self-center text-sm">{item.User.name}</span>
                 </div>
               </div>
               <div className="mt-3">
                 <a
                   rel="noopener noreferrer"
                   href={
-                    !item.public && !isAuthenticated
+                    !item?.public && !isAuthenticated
                       ? routes.login()
                       : routes.article({ id: item.id })
                   }
@@ -139,7 +137,7 @@ export const Success = ({ articles }: CellSuccessProps<ArticlesQuery>) => {
                 <a
                   rel="noopener noreferrer"
                   href={
-                    !item.public && !isAuthenticated
+                    !item?.public && !isAuthenticated
                       ? routes.login()
                       : routes.article({ id: item.id })
                   }
