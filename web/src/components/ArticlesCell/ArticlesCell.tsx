@@ -12,12 +12,15 @@ export const QUERY = gql`
       title
       body
       createdAt
+      User {
+        name
+      }
     }
   }
 `
 
 export const Loading = () => (
-  <section className="flex h-full items-center p-10 dark:bg-gray-900 dark:text-gray-100">
+  <section className="flex h-full items-center p-10 dark:text-gray-100">
     <div className="container mx-auto my-8 flex flex-col items-center justify-center px-5">
       <div className="w-60 animate-pulse rounded py-4 shadow-md dark:bg-gray-900 sm:w-80">
         <div className="flex space-x-4 p-4 sm:px-8">
@@ -44,7 +47,7 @@ export const Loading = () => (
 )
 
 export const Empty = () => (
-  <section className="flex h-full items-center p-10 dark:bg-gray-900 dark:text-gray-100">
+  <section className="flex h-full items-center p-10 dark:text-gray-100">
     <div className="container mx-auto my-8 flex flex-col items-center justify-center px-5">
       <div className="max-w-md text-center">
         <span className="sr-only">Error</span>
@@ -80,38 +83,56 @@ export const Success = ({ articles }: CellSuccessProps<ArticlesQuery>) => {
     <ul>
       {articles.map((item) => {
         return (
-          <>
-            <div className="my-4 dark:bg-gray-800 dark:text-gray-100">
-              <div className="container mx-auto max-w-4xl rounded-lg px-10 py-6 shadow-sm dark:bg-gray-900">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm dark:text-gray-400">
-                    {new Date(item.createdAt).toLocaleString('pt-BR', {
-                      dateStyle: 'medium',
-                    })}
+          <div
+            key={item.id}
+            className="my-4 dark:bg-gray-800 dark:text-gray-100"
+          >
+            <div className="container mx-auto max-w-4xl rounded-lg px-10 py-6 shadow-sm dark:bg-gray-900">
+              <div className="flex flex-col items-start justify-between space-y-2">
+                <p className="text-sm dark:text-gray-400">
+                  {new Date(item.createdAt).toLocaleString('en-US', {
+                    dateStyle: 'medium',
+                  })}
+                </p>
+                <div className="flex space-x-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className="h-5 w-5 dark:text-gray-400"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                  <span className="self-center text-sm">
+                    {articles[item.id - 1].User.name}
                   </span>
                 </div>
-                <div className="mt-3">
-                  <a
-                    rel="noopener noreferrer"
-                    href={routes.article({ id: item.id.toString() })}
-                    className="text-2xl font-bold hover:underline"
-                  >
-                    {item.title}
-                  </a>
-                  <p className="mt-2">{truncate(item.body)}</p>
-                </div>
-                <div className="mt-4 flex items-center justify-between">
-                  <a
-                    rel="noopener noreferrer"
-                    href={routes.article({ id: item.id.toString() })}
-                    className="hover:underline dark:text-violet-400"
-                  >
-                    Read more
-                  </a>
-                </div>
+              </div>
+              <div className="mt-3">
+                <a
+                  rel="noopener noreferrer"
+                  href={routes.article({ id: item.id })}
+                  className="text-2xl font-bold hover:underline"
+                >
+                  {item.title}
+                </a>
+                <p className="mt-2">{truncate(item.body)}</p>
+              </div>
+              <div className="mt-4 flex items-center justify-between">
+                <a
+                  rel="noopener noreferrer"
+                  href={routes.article({ id: item.id })}
+                  className="hover:underline dark:text-violet-400"
+                >
+                  Read more
+                </a>
               </div>
             </div>
-          </>
+          </div>
         )
       })}
     </ul>

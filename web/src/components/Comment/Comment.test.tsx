@@ -8,7 +8,14 @@ import Comment from './Comment'
 describe('Comment', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<Comment />)
+      render(
+        <Comment
+          id={465}
+          message="message"
+          name="name"
+          createdAt={new Date().toDateString()}
+        />
+      )
     }).not.toThrow()
   })
 })

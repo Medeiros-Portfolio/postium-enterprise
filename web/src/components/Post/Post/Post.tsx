@@ -2,7 +2,7 @@ import { Link, routes, navigate } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
-import { timeTag } from 'src/lib/formatters'
+import { checkboxInputTag, timeTag } from 'src/lib/formatters'
 
 import type { DeletePostMutationVariables, FindPostById } from 'types/graphql'
 
@@ -50,6 +50,10 @@ const Post = ({ post }: Props) => {
               <td>{post.id}</td>
             </tr>
             <tr>
+              <th>Public</th>
+              <td>{checkboxInputTag(post.public)}</td>
+            </tr>
+            <tr>
               <th>Title</th>
               <td>{post.title}</td>
             </tr>
@@ -64,6 +68,10 @@ const Post = ({ post }: Props) => {
             <tr>
               <th>Updated at</th>
               <td>{timeTag(post.updatedAt)}</td>
+            </tr>
+            <tr>
+              <th>User id</th>
+              <td>{post.userId}</td>
             </tr>
           </tbody>
         </table>

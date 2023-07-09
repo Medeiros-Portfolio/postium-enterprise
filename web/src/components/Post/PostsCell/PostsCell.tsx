@@ -9,10 +9,12 @@ export const QUERY = gql`
   query FindPosts {
     posts {
       id
+      public
       title
       body
       createdAt
       updatedAt
+      userId
     }
   }
 `

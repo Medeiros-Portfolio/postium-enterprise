@@ -3,7 +3,7 @@ import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import { QUERY } from 'src/components/Post/PostsCell'
-import { timeTag, truncate } from 'src/lib/formatters'
+import { checkboxInputTag, timeTag, truncate } from 'src/lib/formatters'
 
 import type { DeletePostMutationVariables, FindPosts } from 'types/graphql'
 
@@ -42,10 +42,12 @@ const PostsList = ({ posts }: FindPosts) => {
         <thead>
           <tr>
             <th>Id</th>
+            <th>Public</th>
             <th>Title</th>
             <th>Body</th>
             <th>Created at</th>
             <th>Updated at</th>
+            <th>User id</th>
             <th>&nbsp;</th>
           </tr>
         </thead>
@@ -53,10 +55,12 @@ const PostsList = ({ posts }: FindPosts) => {
           {posts.map((post) => (
             <tr key={post.id}>
               <td>{truncate(post.id)}</td>
+              <td>{checkboxInputTag(post.public)}</td>
               <td>{truncate(post.title)}</td>
               <td>{truncate(post.body)}</td>
               <td>{timeTag(post.createdAt)}</td>
               <td>{timeTag(post.updatedAt)}</td>
+              <td>{truncate(post.userId)}</td>
               <td>
                 <nav className="rw-table-actions">
                   <Link

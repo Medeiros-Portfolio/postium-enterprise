@@ -1,10 +1,14 @@
 export const schema = gql`
   type Post {
     id: Int!
+    public: Boolean!
     title: String!
     body: String!
+    comments: [Comment]!
     createdAt: DateTime!
     updatedAt: DateTime!
+    User: User
+    userId: String
   }
 
   type Query {
@@ -13,13 +17,17 @@ export const schema = gql`
   }
 
   input CreatePostInput {
+    public: Boolean!
     title: String!
     body: String!
+    userId: String
   }
 
   input UpdatePostInput {
+    public: Boolean
     title: String
     body: String
+    userId: String
   }
 
   type Mutation {

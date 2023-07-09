@@ -12,16 +12,21 @@ generator client {
 // to create migrations for them and apply to your dev DB.
 model Post {
   id        Int       @id @default(autoincrement())
+  public    Boolean   @default(false)
   title     String
   body      String
   comments  Comment[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  User      User?     @relation(fields: [userId], references: [id])
+  userId    String?
 }
 
 model User {
   id                  String    @id @default(uuid())
   email               String    @unique
+  name                String    @default("Anonymous")
+  posts               Post[]
   hashedPassword      String
   salt                String
   resetToken          String?

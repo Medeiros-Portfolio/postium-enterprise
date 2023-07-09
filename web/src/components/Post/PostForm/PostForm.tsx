@@ -1,14 +1,17 @@
+import type { EditPostById, UpdatePostInput } from 'types/graphql'
+
 import {
   Form,
   FormError,
   FieldError,
   Label,
+  CheckboxField,
   TextField,
   Submit,
 } from '@redwoodjs/forms'
-
-import type { EditPostById, UpdatePostInput } from 'types/graphql'
 import type { RWGqlError } from '@redwoodjs/forms'
+
+import { useAuth } from '../../../auth'
 
 type FormPost = NonNullable<EditPostById['post']>
 
@@ -20,8 +23,10 @@ interface PostFormProps {
 }
 
 const PostForm = (props: PostFormProps) => {
+  const { currentUser } = useAuth()
+
   const onSubmit = (data: FormPost) => {
-    props.onSave(data, props?.post?.id)
+    props.onSave({ ...data, userId: currentUser.id }, props?.post?.id)
   }
 
   return (
@@ -33,6 +38,23 @@ const PostForm = (props: PostFormProps) => {
           titleClassName="rw-form-error-title"
           listClassName="rw-form-error-list"
         />
+
+        <Label
+          name="public"
+          className="rw-label"
+          errorClassName="rw-label rw-label-error"
+        >
+          Public
+        </Label>
+
+        <CheckboxField
+          name="public"
+          defaultChecked={props.post?.public}
+          className="rw-input"
+          errorClassName="rw-input rw-input-error"
+        />
+
+        <FieldError name="public" className="rw-field-error" />
 
         <Label
           name="title"
@@ -69,7 +91,6 @@ const PostForm = (props: PostFormProps) => {
         />
 
         <FieldError name="body" className="rw-field-error" />
-
         <div className="rw-button-group">
           <Submit disabled={props.loading} className="rw-button rw-button-blue">
             Save
