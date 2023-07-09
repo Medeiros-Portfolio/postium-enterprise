@@ -2,5 +2,8 @@
 export const standard = (/* vars, { ctx, req } */) => ({
   article: {
     id: 42,
+    User: {
+      name: 'John Doe',
+    },
   },
 })

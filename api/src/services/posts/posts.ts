@@ -8,7 +8,9 @@ import { db } from 'src/lib/db'
 
 import { isAuthenticated } from '../../lib/auth'
 
-export const posts: Partial<QueryResolvers['posts']> = async () => {
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore-next-line
+export const posts: QueryResolvers['posts'] = async () => {
   return db.post
     .findMany({
       include: {

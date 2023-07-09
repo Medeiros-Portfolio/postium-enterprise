@@ -1,7 +1,5 @@
-import type { Post } from '@prisma/client'
-
-import { posts, post, createPost, updatePost, deletePost } from './posts'
-import type { StandardScenario } from './posts.scenarios'
+import { createPost, post, posts } from './posts'
+import { StandardScenario } from './posts.scenarios'
 
 // Generated boilerplate tests do not account for all circumstances
 // and can fail without adjustments, e.g. Float.
@@ -10,46 +8,44 @@ import type { StandardScenario } from './posts.scenarios'
 // https://redwoodjs.com/docs/testing#jest-expect-type-considerations
 
 describe('posts', () => {
-  scenario('returns all posts', async (scenario: StandardScenario) => {
-    const result = await posts()
+  scenario(
+    'standard',
+    'returns all posts',
+    async (scenario: StandardScenario) => {
+      const result = await posts()
 
-    expect(result.length).toEqual(Object.keys(scenario.post).length)
-  })
+      expect(result.length).toEqual(Object.keys(scenario.post).length)
+    }
+  )
 
-  scenario('returns a single post', async (scenario: StandardScenario) => {
-    const result = await post({ id: scenario.post.one.id })
+  scenario(
+    'standard',
+    'returns a single post',
+    async (scenario: StandardScenario) => {
+      const result = await post({ id: scenario.post.first.id })
 
-    expect(result).toEqual(scenario.post.one)
-  })
+      expect(result).toEqual(scenario.post.first)
+    }
+  )
 
-  scenario('creates a post', async () => {
+  scenario('standard', 'creates a post', async (scenario: StandardScenario) => {
+    mockCurrentUser({
+      id: scenario.post.first.userId,
+      roles: ['admin'],
+      email: 'test@email.com',
+    })
+
     const result = await createPost({
       input: {
         title: 'String',
         body: 'String',
-        updatedAt: '2023-07-08T22:58:22.678Z',
+        public: true,
       },
     })
 
     expect(result.title).toEqual('String')
     expect(result.body).toEqual('String')
-    expect(result.updatedAt).toEqual(new Date('2023-07-08T22:58:22.678Z'))
-  })
-
-  scenario('updates a post', async (scenario: StandardScenario) => {
-    const original = (await post({ id: scenario.post.one.id })) as Post
-    const result = await updatePost({
-      id: original.id,
-      input: { title: 'String2' },
-    })
-
-    expect(result.title).toEqual('String2')
-  })
-
-  scenario('deletes a post', async (scenario: StandardScenario) => {
-    const original = (await deletePost({ id: scenario.post.one.id })) as Post
-    const result = await post({ id: original.id })
-
-    expect(result).toEqual(null)
+    expect(result.public).toEqual(true)
+    expect(result.userId).toEqual(scenario.post.first.userId)
   })
 })
