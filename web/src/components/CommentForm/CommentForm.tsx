@@ -66,7 +66,9 @@ const CommentForm = ({ postId }) => {
     <>
       {isAuthenticated ? (
         <div className="lg:px12 mx-auto flex max-w-xl flex-col rounded-xl px-8 py-3 shadow-sm dark:bg-gray-900 dark:text-gray-100 lg:py-3">
-          <h3 className="pb-1 text-left text-2xl font-semibold">Comment</h3>
+          <h3 className="pb-1 text-left text-2xl font-semibold">
+            Leave your comment:
+          </h3>
           <div className="flex w-full flex-col items-center">
             <Toaster>
               {(t) => (

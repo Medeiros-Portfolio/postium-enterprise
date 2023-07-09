@@ -11,10 +11,12 @@ export const QUERY = gql`
   query EditPostById($id: Int!) {
     post: post(id: $id) {
       id
+      public
       title
       body
       createdAt
       updatedAt
+      userId
     }
   }
 `
@@ -22,10 +24,12 @@ const UPDATE_POST_MUTATION = gql`
   mutation UpdatePostMutation($id: Int!, $input: UpdatePostInput!) {
     updatePost(id: $id, input: $input) {
       id
+      public
       title
       body
       createdAt
       updatedAt
+      userId
     }
   }
 `

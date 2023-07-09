@@ -8,10 +8,12 @@ export const QUERY = gql`
   query FindPostById($id: Int!) {
     post: post(id: $id) {
       id
+      public
       title
       body
       createdAt
       updatedAt
+      userId
     }
   }
 `
