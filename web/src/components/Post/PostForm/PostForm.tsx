@@ -11,8 +11,6 @@ import {
 } from '@redwoodjs/forms'
 import type { RWGqlError } from '@redwoodjs/forms'
 
-import { useAuth } from '../../../auth'
-
 type FormPost = NonNullable<EditPostById['post']>
 
 interface PostFormProps {
@@ -23,10 +21,8 @@ interface PostFormProps {
 }
 
 const PostForm = (props: PostFormProps) => {
-  const { currentUser } = useAuth()
-
   const onSubmit = (data: FormPost) => {
-    props.onSave({ ...data, userId: currentUser.id }, props?.post?.id)
+    props.onSave(data, props?.post?.id)
   }
 
   return (

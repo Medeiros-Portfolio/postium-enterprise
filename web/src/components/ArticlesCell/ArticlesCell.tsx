@@ -3,12 +3,14 @@ import type { ArticlesQuery } from 'types/graphql'
 import { routes } from '@redwoodjs/router'
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 
+import { useAuth } from '../../auth'
 import { truncate } from '../../lib/formatters'
 
 export const QUERY = gql`
   query ArticlesQuery {
     articles: posts {
       id
+      public
       title
       body
       createdAt
@@ -79,6 +81,8 @@ export const Failure = ({ error }: CellFailureProps) => (
 )
 
 export const Success = ({ articles }: CellSuccessProps<ArticlesQuery>) => {
+  const { isAuthenticated } = useAuth()
+
   return (
     <ul>
       {articles.map((item) => {
@@ -89,6 +93,11 @@ export const Success = ({ articles }: CellSuccessProps<ArticlesQuery>) => {
           >
             <div className="container mx-auto max-w-4xl rounded-lg px-10 py-6 shadow-sm dark:bg-gray-900">
               <div className="flex flex-col items-start justify-between space-y-2">
+                {articles[item.id - 1].public && (
+                  <span className="rounded px-2 py-1 font-bold dark:bg-violet-400 dark:text-gray-900">
+                    Premium
+                  </span>
+                )}
                 <p className="text-sm dark:text-gray-400">
                   {new Date(item.createdAt).toLocaleString('en-US', {
                     dateStyle: 'medium',
@@ -115,7 +124,11 @@ export const Success = ({ articles }: CellSuccessProps<ArticlesQuery>) => {
               <div className="mt-3">
                 <a
                   rel="noopener noreferrer"
-                  href={routes.article({ id: item.id })}
+                  href={
+                    !item.public && !isAuthenticated
+                      ? routes.login()
+                      : routes.article({ id: item.id })
+                  }
                   className="text-2xl font-bold hover:underline"
                 >
                   {item.title}
@@ -125,7 +138,11 @@ export const Success = ({ articles }: CellSuccessProps<ArticlesQuery>) => {
               <div className="mt-4 flex items-center justify-between">
                 <a
                   rel="noopener noreferrer"
-                  href={routes.article({ id: item.id })}
+                  href={
+                    !item.public && !isAuthenticated
+                      ? routes.login()
+                      : routes.article({ id: item.id })
+                  }
                   className="hover:underline dark:text-violet-400"
                 >
                   Read more

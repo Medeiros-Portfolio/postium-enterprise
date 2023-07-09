@@ -22,10 +22,9 @@ const Routes = () => {
   return (
     <Router useAuth={useAuth}>
       <Set wrap={MainLayout}>
-        <Private unauthenticated="login">
-          <Route path="/articles" page={ArticlesPage} name="articles" />
-          <Route path="/articles/{id:Int}" page={ArticlePage} name="article" />
-        </Private>
+        <Route path="/articles/{id:Int}" page={ArticlePage} name="article" />
+
+        <Route path="/articles" page={ArticlesPage} name="articles" />
         <Route path="/home" page={HomePage} name="home" />
         <Route path="/contact" page={ContactPage} name="contact" />
         <Route path="/about" page={AboutPage} name="about" />

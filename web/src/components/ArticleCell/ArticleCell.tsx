@@ -11,6 +11,7 @@ export const QUERY = gql`
       User {
         name
       }
+      public
       title
       body
       createdAt
@@ -60,6 +61,11 @@ export const Success = ({ article }: CellSuccessProps<ArticleCellProps>) => {
           <ArticleImage imageURL={imageURL} />
           <div className="m-4 mx-auto -mt-16 space-y-6 p-6 pb-12 dark:bg-gray-900 sm:mx-12 sm:px-10 lg:max-w-2xl lg:rounded-md">
             <div className="space-y-2">
+              {!article.public && (
+                <span className="block w-fit rounded px-2 py-1 font-bold dark:bg-violet-400 dark:text-gray-900">
+                  Premium
+                </span>
+              )}
               <p
                 rel="noopener noreferrer"
                 className="inline-block text-2xl font-semibold sm:text-3xl"
