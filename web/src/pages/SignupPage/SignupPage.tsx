@@ -18,7 +18,7 @@ import { useAuth } from 'src/auth'
 const SignupPage = () => {
   const { isAuthenticated, signUp } = useAuth()
 
-  const emailRef = useRef<HTMLInputElement>()
+  const nameRef = useRef<HTMLInputElement>()
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -27,11 +27,12 @@ const SignupPage = () => {
   }, [isAuthenticated])
 
   useEffect(() => {
-    emailRef.current?.focus()
+    nameRef.current?.focus()
   }, [])
 
   const onSubmit = async (data: Record<string, string>) => {
     const response = await signUp({
+      name: data.name,
       username: data.email,
       password: data.password,
     })
@@ -40,7 +41,7 @@ const SignupPage = () => {
       toast(response.message)
     } else if (response.error) {
       toast.error(response.error)
-      emailRef.current?.focus()
+      nameRef.current?.focus()
     } else {
       // user is signed in automatically
       toast.success('Welcome!')
@@ -65,6 +66,23 @@ const SignupPage = () => {
           <div className="space-y-4">
             <div>
               <Label
+                name="name"
+                errorClassName="rw-label rw-label-error"
+                className="mb-2 block text-sm"
+              >
+                Name
+              </Label>
+              <TextField
+                name="name"
+                errorClassName="w-full rounded p-3 dark:bg-gray-800 border-2 border-red-500"
+                ref={nameRef}
+                placeholder="Leroy Jenkins"
+                className="w-full rounded-md border px-3 py-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+              />
+              <FieldError name="email" className="rw-field-error" />
+            </div>
+            <div>
+              <Label
                 name="email"
                 errorClassName="rw-label rw-label-error"
                 className="mb-2 block text-sm"
@@ -74,28 +92,19 @@ const SignupPage = () => {
               <TextField
                 name="email"
                 errorClassName="w-full rounded p-3 dark:bg-gray-800 border-2 border-red-500"
-                ref={emailRef}
                 placeholder="leroy@jenkins.com"
                 className="w-full rounded-md border px-3 py-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
               />
               <FieldError name="email" className="rw-field-error" />
             </div>
             <div>
-              <div className="mb-2 flex justify-between">
-                <Label
-                  name="password"
-                  className="text-sm"
-                  errorClassName="rw-label rw-label-error"
-                >
-                  Password
-                </Label>
-                <Link
-                  to={routes.forgotPassword()}
-                  className="text-xs hover:underline dark:text-gray-400"
-                >
-                  Forgot Password?
-                </Link>
-              </div>
+              <Label
+                name="password"
+                className="text-sm"
+                errorClassName="rw-label rw-label-error"
+              >
+                Password
+              </Label>
               <PasswordField
                 name="password"
                 className="w-full rounded-md border px-3 py-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
