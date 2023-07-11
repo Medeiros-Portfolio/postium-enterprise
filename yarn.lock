@@ -8707,6 +8707,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"axios@npm:^0.25.0":
+  version: 0.25.0
+  resolution: "axios@npm:0.25.0"
+  dependencies:
+    follow-redirects: ^1.14.7
+  checksum: 33475dc847e8494341db5ff5d3ce3a830e511d9698eda1e2507618a0a875ca774e7c59b9194c70664e886699b5917416175da2ea5ccb67a2945f7cdc939d7c56
+  languageName: node
+  linkType: hard
+
 "axobject-query@npm:^3.1.1":
   version: 3.1.1
   resolution: "axobject-query@npm:3.1.1"
@@ -13425,7 +13434,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.0.0":
+"follow-redirects@npm:^1.0.0, follow-redirects@npm:^1.14.7":
   version: 1.15.2
   resolution: "follow-redirects@npm:1.15.2"
   peerDependenciesMeta:
@@ -16240,6 +16249,15 @@ __metadata:
     jest-resolve:
       optional: true
   checksum: 86eec0c78449a2de733a6d3e316d49461af6a858070e113c97f75fb742a48c2396ea94150cbca44159ffd4a959f743a47a8b37a792ef6fdad2cf0a5cba973fac
+  languageName: node
+  linkType: hard
+
+"jest-qase-reporter@npm:^1.3.0-alpha.4":
+  version: 1.3.0-alpha.4
+  resolution: "jest-qase-reporter@npm:1.3.0-alpha.4"
+  dependencies:
+    qaseio: ^2.0.0-alpha.5
+  checksum: c5902d0e59c8dedb9a5adf3b6b8c3f559a827bfd04d80f7d152bfae0101e151317f3ca952304fcfcb6f4ad2663a76460851f4a204d6819d88ef76b2ef0f03e1c
   languageName: node
   linkType: hard
 
@@ -20517,6 +20535,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"qaseio@npm:^2.0.0-alpha.5":
+  version: 2.0.1
+  resolution: "qaseio@npm:2.0.1"
+  dependencies:
+    axios: ^0.25.0
+    form-data: ^3.0.0
+  checksum: aeec0ce8bae0fa5b7324bcb79b830f060a40641a43420f3b19b9d3042829852e58d4636c0b9d751112634f3d32c8335eb9d3fae287ee30b23f1c60a54082c98d
+  languageName: node
+  linkType: hard
+
 "qs@npm:6.11.0":
   version: 6.11.0
   resolution: "qs@npm:6.11.0"
@@ -21539,6 +21567,7 @@ __metadata:
   dependencies:
     "@redwoodjs/auth-dbauth-setup": 5.4.2
     "@redwoodjs/core": 5.4.2
+    jest-qase-reporter: ^1.3.0-alpha.4
     prettier-plugin-tailwindcss: ^0.3.0
   languageName: unknown
   linkType: soft
