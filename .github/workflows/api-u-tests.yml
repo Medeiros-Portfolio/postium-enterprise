@@ -22,8 +22,9 @@ on:
 env:
   DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
   TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
-  QASE_API_BASE_URL: ${{ inputs.qase_api_base_url }}
+  # You should pass this ENV if you want to use qase reporter
   QASE_REPORT: ${{ inputs.qase_report }}
+  QASE_API_BASE_URL: ${{ inputs.qase_api_base_url }}
   QASE_PROJECT_CODE: ${{ inputs.qase_project_code }}
   QASE_RUN_ID: ${{ inputs.qase_run_id }}
   QASE_COMPLETE_RUN_AFTER_SUBMIT: ${{ inputs.qase_autocomplete_run }}
@@ -59,7 +60,7 @@ jobs:
     steps:
       - uses: qase-tms/qase-link-run@main
         env:
-          QASE_API_TOKEN: ${{ secrets.QASE_API_TOKEN }}
+          QASE_API_TOKEN: ${{ env.QASE_API_TOKEN }}
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3

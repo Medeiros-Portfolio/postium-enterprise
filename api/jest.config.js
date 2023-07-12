@@ -9,7 +9,7 @@ const config = {
       'jest-qase-reporter',
       {
         apiToken: process.env.QASE_API_TOKEN,
-        projectCode: process.env.QASE_PROJECT_CODE,
+        projectCode: 'POSTIUM',
         logging: true,
         runComplete: true,
       },
