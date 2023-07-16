@@ -23,7 +23,7 @@ model Post {
 model User {
   id                  String    @id @default(uuid())
   email               String    @unique
-  name                String    @default("Anonymous")
+  name                String
   posts               Post[]
   hashedPassword      String
   salt                String
