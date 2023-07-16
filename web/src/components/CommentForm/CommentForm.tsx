@@ -54,7 +54,7 @@ const CommentForm = ({ postId }) => {
     create({
       variables: {
         input: {
-          name: currentUser?.email,
+          name: currentUser?.name || 'Anonymous',
           message: data.commentInput,
           postId,
         },

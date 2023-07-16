@@ -128,7 +128,7 @@ export default async () => {
           data: {
             ...comment,
             postId: 1,
-            name: data.users[0].email,
+            name: data.users[0].name,
           },
         })
       }
