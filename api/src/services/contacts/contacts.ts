@@ -17,9 +17,22 @@ export const contact: QueryResolvers['contact'] = ({ id }) => {
 export const createContact: MutationResolvers['createContact'] = ({
   input,
 }) => {
-  validate(input.email, 'email', { email: true })
-  validate(input.name, 'name', { presence: true })
-  validate(input.message, 'message', { presence: true })
+  validate(input.email, 'email', { presence: true, email: true })
+  validate(input.name, 'name', {
+    presence: true,
+    length: {
+      minimum: 2,
+    },
+    format: {
+      pattern: /[a-zA-Z]+/,
+    },
+  })
+  validate(input.message, 'message', {
+    presence: true,
+    length: {
+      minimum: 2,
+    },
+  })
 
   return db.contact.create({
     data: input,

@@ -35,4 +35,51 @@ describe('contacts', () => {
     expect(result.email).toEqual('email@email.com')
     expect(result.message).toEqual('String')
   })
+
+  scenario('validate email on create', async () => {
+    const contactWithInvalidEmail = {
+      name: 'String',
+      email: 'invalidemail',
+      message: 'String',
+    }
+
+    expect(async () => {
+      await createContact({
+        input: {
+          ...contactWithInvalidEmail,
+        },
+      })
+    }).rejects.toThrow()
+  })
+
+  scenario('validate message on create', async () => {
+    const contactWithInvalidMessage = {
+      name: 'String',
+      email: 'valid@email.com',
+    }
+
+    expect(async () => {
+      await createContact({
+        input: {
+          ...contactWithInvalidMessage,
+        },
+      })
+    }).rejects.toThrow()
+  })
+
+  scenario('validate name on create', async () => {
+    const contactWithInvalidName = {
+      name: '',
+      email: 'valid@email.com',
+      message: 'String',
+    }
+
+    expect(async () => {
+      await createContact({
+        input: {
+          ...contactWithInvalidName,
+        },
+      })
+    }).rejects.toThrow()
+  })
 })
