@@ -1,4 +1,4 @@
-import { render } from '@redwoodjs/testing/web'
+import { render, screen } from '@redwoodjs/testing/web'
 
 import AboutPage from './AboutPage'
 
@@ -10,5 +10,10 @@ describe('AboutPage', () => {
     expect(() => {
       render(<AboutPage />)
     }).not.toThrow()
+  })
+
+  it('has a heading with Frequently Asked Questions', () => {
+    render(<AboutPage />)
+    expect(screen.getByText('Frequently Asked Questions')).toBeInTheDocument()
   })
 })
