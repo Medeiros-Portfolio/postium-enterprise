@@ -110,10 +110,15 @@ export const handler = async (
     // `signUp()` function in the form of: `{ message: 'String here' }`.
     handler: ({ username, hashedPassword, salt, userAttributes }) => {
       validate(username, 'email', { email: true })
+      validate(userAttributes.name, 'name', {
+        presence: true,
+        length: { minimum: 3 },
+      })
 
       return db.user.create({
         data: {
           email: username,
+          name: userAttributes.name,
           hashedPassword: hashedPassword,
           salt: salt,
           // name: userAttributes.name
