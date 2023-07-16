@@ -111,7 +111,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                     />
                   </svg>
                   <span className="dark:text-gray-400">
-                    {currentUser?.email.split('@')[0]}
+                    {currentUser?.name.split(' ')[0]}
                   </span>
                 </span>
                 <button
@@ -162,7 +162,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                 />
                 <div>
                   <h2 className="text-lg font-semibold">
-                    {currentUser?.email.split('@')[0]}
+                    {currentUser?.name.split(' ')[0]}
                   </h2>
                   <span className="flex items-center space-x-1">
                     <a
