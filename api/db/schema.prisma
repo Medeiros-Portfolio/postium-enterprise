@@ -8,8 +8,6 @@ generator client {
   binaryTargets = "native"
 }
 
-// Define your own datamodels here and run `yarn redwood prisma migrate dev`
-// to create migrations for them and apply to your dev DB.
 model Post {
   id        Int       @id @default(autoincrement())
   public    Boolean   @default(false)
