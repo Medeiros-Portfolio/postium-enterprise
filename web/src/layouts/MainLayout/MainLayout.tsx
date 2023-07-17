@@ -86,31 +86,12 @@ const MainLayout = ({ children }: MainLayoutProps) => {
             {isAuthenticated ? (
               <>
                 <span className="flex items-center space-x-1">
-                  <svg
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-8 w-8 dark:text-violet-400"
-                  >
-                    <path
-                      d="M20,21V19a4,4,0,0,0-4-4H8a4,4,0,0,0-4,4v2"
-                      stroke="currentColor"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                    />
-                    <circle
-                      cx="12"
-                      cy="7"
-                      r="4"
-                      stroke="currentColor"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                    />
-                  </svg>
-                  <span className="dark:text-gray-400">
+                  <img
+                    src={currentUser?.avatar}
+                    alt=""
+                    className="h-12 w-12 rounded-full border-2 border-violet-300 dark:bg-gray-500"
+                  />
+                  <span className="border-t- border-b-2 border-t-2 border-violet-500 px-2 text-lg font-medium  dark:text-gray-400">
                     {currentUser?.name.split(' ')[0]}
                   </span>
                 </span>
@@ -156,12 +137,12 @@ const MainLayout = ({ children }: MainLayoutProps) => {
             {isAuthenticated ? (
               <div className="flex items-center space-x-4 p-2">
                 <img
-                  src="https://source.unsplash.com/100x100/?portrait"
+                  src={currentUser?.avatar}
                   alt=""
-                  className="h-12 w-12 rounded-full dark:bg-gray-500"
+                  className="h-12 w-12 rounded-full border-2 border-violet-300 dark:bg-gray-500"
                 />
                 <div>
-                  <h2 className="text-lg font-semibold">
+                  <h2 className="border-t- border-b-2 border-t-2 border-violet-500 px-2 text-lg font-medium  dark:text-gray-400">
                     {currentUser?.name.split(' ')[0]}
                   </h2>
                   <span className="flex items-center space-x-1">
