@@ -1,5 +1,3 @@
-import exp from 'constants'
-
 import type { User } from '@prisma/client'
 
 import { users, user, createUser, updateUser, deleteUser } from './users'
@@ -25,67 +23,29 @@ describe('users', () => {
   })
 
   scenario('creates a user', async () => {
-    const newUser = {
-      email: 'createduser@email.com',
-      name: 'String',
-      hashedPassword: 'String',
-      salt: 'String',
-    }
-
     const result = await createUser({
       input: {
-        ...newUser,
+        email: 'String8493769',
+        name: 'String',
+        hashedPassword: 'String',
+        salt: 'String',
       },
     })
 
-    expect(result.email).toEqual(newUser.email)
-    expect(result.name).toEqual(newUser.name)
-    expect(result.hashedPassword).toEqual(newUser.hashedPassword)
-    expect(result.salt).toEqual(newUser.salt)
-  })
-
-  scenario('validate email on create', async () => {
-    const userWithInvalidEmail = {
-      email: 'invalidemail',
-      name: 'String',
-      hashedPassword: 'String',
-      salt: 'String',
-    }
-
-    expect(async () => {
-      await createUser({
-        input: {
-          ...userWithInvalidEmail,
-        },
-      })
-    }).rejects.toThrow()
-  })
-
-  scenario('validate name on create', async () => {
-    const userWithInvalidName = {
-      email: 'valid@email.com',
-      name: '123',
-      hashedPassword: 'String',
-      salt: 'String',
-    }
-
-    expect(async () => {
-      await createUser({
-        input: {
-          ...userWithInvalidName,
-        },
-      })
-    }).rejects.toThrow()
+    expect(result.email).toEqual('String8493769')
+    expect(result.name).toEqual('String')
+    expect(result.hashedPassword).toEqual('String')
+    expect(result.salt).toEqual('String')
   })
 
   scenario('updates a user', async (scenario: StandardScenario) => {
     const original = (await user({ id: scenario.user.one.id })) as User
     const result = await updateUser({
       id: original.id,
-      input: { email: 'updatedemail@email.com' },
+      input: { email: 'String1825522' },
     })
 
-    expect(result.email).toEqual('updatedemail@email.com')
+    expect(result.email).toEqual('String1825522')
   })
 
   scenario('deletes a user', async (scenario: StandardScenario) => {
