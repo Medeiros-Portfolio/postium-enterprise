@@ -23,7 +23,6 @@ const Routes = () => {
     <Router useAuth={useAuth}>
       <Set wrap={MainLayout}>
         <Route path="/articles/{id:Int}" page={ArticlePage} name="article" />
-
         <Route path="/articles" page={ArticlesPage} name="articles" />
         <Route path="/home" page={HomePage} name="home" />
         <Route path="/contact" page={ContactPage} name="contact" />
@@ -39,6 +38,9 @@ const Routes = () => {
             <Route path="/posts/{id:Int}" page={PostPostPage} name="post" />
             <Route path="/posts" page={PostPostsPage} name="posts" />
           </Set>
+        </Private>
+        <Private unauthenticated="login">
+          <Route path="/profile" page={ProfilePage} name="profile" />
         </Private>
       </Set>
       <Route notfound page={NotFoundPage} />
