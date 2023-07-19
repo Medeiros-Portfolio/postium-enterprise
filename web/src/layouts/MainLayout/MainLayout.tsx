@@ -85,15 +85,19 @@ const MainLayout = ({ children }: MainLayoutProps) => {
           <div className="hidden flex-shrink-0 items-center space-x-3 lg:flex">
             {isAuthenticated ? (
               <>
-                <span className="flex items-center space-x-1">
-                  <img
-                    src={currentUser?.avatar}
-                    alt=""
-                    className="h-12 w-12 rounded-full border-2 border-violet-300 dark:bg-gray-500"
-                  />
-                  <span className="border-t- border-b-2 border-t-2 border-violet-500 px-2 text-lg font-medium  dark:text-gray-400">
-                    {currentUser?.name.split(' ')[0]}
-                  </span>
+                <span className="mr-6 flex items-center space-x-1">
+                  <a href={routes.profile()}>
+                    <img
+                      src={currentUser?.avatar}
+                      alt=""
+                      className="h-12 w-12 rounded-full border-2 border-violet-300 hover:scale-105 dark:bg-gray-500"
+                    />
+                  </a>
+                  <a href={routes.profile()}>
+                    <span className="border-b-2 border-t-2 border-violet-500 px-2 text-lg font-medium hover:border-violet-200 dark:text-gray-400">
+                      {currentUser?.name.split(' ')[0]}
+                    </span>
+                  </a>
                 </span>
                 <button
                   onClick={() => logOut()}

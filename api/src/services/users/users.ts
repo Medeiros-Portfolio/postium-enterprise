@@ -4,6 +4,8 @@ import type {
   UserRelationResolvers,
 } from 'types/graphql'
 
+import { validate } from '@redwoodjs/api'
+
 import { db } from 'src/lib/db'
 
 export const users: QueryResolvers['users'] = () => {
@@ -31,6 +33,39 @@ export const updateUser: MutationResolvers['updateUser'] = ({ id, input }) => {
 
 export const deleteUser: MutationResolvers['deleteUser'] = ({ id }) => {
   return db.user.delete({
+    where: { id },
+  })
+}
+
+export const updateUserEmail: MutationResolvers['updateUserEmail'] = ({
+  id,
+  email,
+}) => {
+  validate(email, 'email', { presence: true, email: true })
+
+  return db.user.update({
+    data: { email },
+    where: { id },
+  })
+}
+
+export const updateUserName: MutationResolvers['updateUserName'] = ({
+  id,
+  name,
+}) => {
+  validate(name, 'name', {
+    presence: true,
+    length: {
+      min: 2,
+      max: 30,
+    },
+    format: {
+      pattern: /[a-zA-Z]+/,
+    },
+  })
+
+  return db.user.update({
+    data: { name },
     where: { id },
   })
 }
