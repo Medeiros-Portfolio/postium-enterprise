@@ -1,3 +1,7 @@
+import { useState } from 'react'
+
+import { PickerOverlay } from 'filestack-react'
+
 import {
   FieldError,
   Form,
@@ -10,6 +14,8 @@ import {
 import { useMutation } from '@redwoodjs/web'
 
 import {
+  UpdateUserAvatarMutation,
+  UpdateUserAvatarMutationVariables,
   UpdateUserEmailMutation,
   UpdateUserEmailMutationVariables,
   UpdateUserNameMutation,
@@ -39,12 +45,23 @@ const UPDATE_USER_NAME = gql`
   }
 `
 
+const UPDATE_USER_AVATAR = gql`
+  mutation UpdateUserAvatarMutation($id: String!, $avatar: String!) {
+    updateUserAvatar(id: $id, avatar: $avatar) {
+      id
+    }
+  }
+`
 interface UpdateEmailFormValues {
   email: string
 }
 
 interface UpdateNameFormValues {
   name: string
+}
+
+interface UpdateAvatarInput {
+  avatar: string
 }
 
 const EditProfile = (userProfileProps: ProfileProps) => {
@@ -92,17 +109,54 @@ const EditProfile = (userProfileProps: ProfileProps) => {
     })
   }
 
+  const [updateUserAvatar] = useMutation<
+    UpdateUserAvatarMutation,
+    UpdateUserAvatarMutationVariables
+  >(UPDATE_USER_AVATAR, {
+    onCompleted: () => {
+      formMethods.reset()
+      window.location.reload()
+    },
+  })
+
+  const onSubmitAvatarUpdate = (data: UpdateAvatarInput) => {
+    updateUserAvatar({
+      variables: {
+        id: currentUser?.id || '',
+        avatar: data.avatar || '',
+      },
+    })
+  }
+
+  const [isFilePickerOpen, toggleFilePicker] = useState(false)
+
   return (
     <>
       <div className="flex max-w-xs flex-col justify-center rounded-xl p-6 shadow-md dark:bg-gray-900 dark:text-gray-100 sm:px-12">
+        {isFilePickerOpen && (
+          <PickerOverlay
+            apikey={process.env.REDWOOD_ENV_FILESTACK_API_KEY}
+            pickerOptions={{
+              accept: ['image/*'],
+              maxFiles: 1,
+              fromSources: ['local_file_system'],
+              onClose: () => toggleFilePicker(false),
+            }}
+            onUploadDone={(res) => {
+              onSubmitAvatarUpdate({ avatar: res.filesUploaded[0].url })
+            }}
+          />
+        )}
         <p className="pb-4 text-center text-3xl text-violet-300 underline">
           Edit your profile
         </p>
-        <img
-          src={userProfileProps.avatar}
-          alt=""
-          className="mx-auto aspect-square h-32 w-32 rounded-full hover:cursor-pointer hover:border-2 dark:bg-gray-500"
-        />
+        <button onClick={() => toggleFilePicker(true)}>
+          <img
+            src={userProfileProps.avatar}
+            alt=""
+            className="mx-auto aspect-square h-32 w-32 rounded-full hover:cursor-pointer hover:border-2 dark:bg-gray-500"
+          />
+        </button>
         <div className="space-y-4 divide-y divide-gray-700 text-center">
           <div className="my-2 space-y-1">
             <h2 className="text-xl font-semibold sm:text-2xl">

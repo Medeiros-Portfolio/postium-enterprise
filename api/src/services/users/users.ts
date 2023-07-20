@@ -37,6 +37,16 @@ export const deleteUser: MutationResolvers['deleteUser'] = ({ id }) => {
   })
 }
 
+export const updateUserAvatar: MutationResolvers['updateUserAvatar'] = ({
+  id,
+  avatar,
+}) => {
+  return db.user.update({
+    data: { avatar },
+    where: { id },
+  })
+}
+
 export const updateUserEmail: MutationResolvers['updateUserEmail'] = ({
   id,
   email,
