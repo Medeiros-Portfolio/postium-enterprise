@@ -80,6 +80,18 @@ export const updateUserName: MutationResolvers['updateUserName'] = ({
   })
 }
 
+export const updateRole: MutationResolvers['updateRole'] = ({ id, role }) => {
+  validate(role, 'role', {
+    presence: true,
+    inclusion: ['admin', 'writer', 'reader'],
+  })
+
+  return db.user.update({
+    data: { roles: { push: role } },
+    where: { id },
+  })
+}
+
 export const User: UserRelationResolvers = {
   posts: (_obj, { root }) => {
     return db.user.findUnique({ where: { id: root?.id } }).posts()

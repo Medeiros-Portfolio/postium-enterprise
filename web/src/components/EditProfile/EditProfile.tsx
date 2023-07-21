@@ -22,6 +22,7 @@ import {
   UpdateUserNameMutationVariables,
 } from '../../../types/graphql'
 import { useAuth } from '../../auth'
+import { thumbnail } from '../../lib/thumbnail'
 
 type ProfileProps = {
   avatar: string
@@ -142,7 +143,8 @@ const EditProfile = (userProfileProps: ProfileProps) => {
               fromSources: ['local_file_system'],
               onClose: () => toggleFilePicker(false),
             }}
-            onUploadDone={(res) => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            onUploadDone={(res: any) => {
               onSubmitAvatarUpdate({ avatar: res.filesUploaded[0].url })
             }}
           />
@@ -152,7 +154,7 @@ const EditProfile = (userProfileProps: ProfileProps) => {
         </p>
         <button onClick={() => toggleFilePicker(true)}>
           <img
-            src={userProfileProps.avatar}
+            src={thumbnail(userProfileProps.avatar)}
             alt=""
             className="mx-auto aspect-square h-32 w-32 rounded-full hover:cursor-pointer hover:border-2 dark:bg-gray-500"
           />
