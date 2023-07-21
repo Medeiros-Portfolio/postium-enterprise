@@ -19,6 +19,18 @@ export default async () => {
           password: 'admin',
           roles: ['admin'],
         },
+        {
+          name: 'Edson Arantes',
+          email: 'edson.arantes@dontfollow.me',
+          password: 'reader',
+          roles: ['reader'],
+        },
+        {
+          name: 'J. R. R. Tolkien',
+          email: 'tolkienfromtheshrine@fakemail.com',
+          password: 'writer',
+          roles: ['writer'],
+        },
       ],
       posts: [
         {
@@ -107,7 +119,7 @@ export default async () => {
     }
 
     const { id: userId } = await db.user.findUnique({
-      where: { email: data.users[0].email },
+      where: { email: data.users[2].email },
     })
 
     const postTableIsEmpty = (await db.post.count()) === 0

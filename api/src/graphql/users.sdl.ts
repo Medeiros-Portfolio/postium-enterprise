@@ -45,6 +45,7 @@ export const schema = gql`
     updateUserEmail(id: String!, email: String!): User! @requireAuth
     updateUserName(id: String!, name: String!): User! @requireAuth
     updateUserAvatar(id: String!, avatar: String!): User! @requireAuth
-    deleteUser(id: String!): User! @requireAuth
+    deleteUser(id: String!): User! @requireAuth(roles: ["admin"])
+    updateRole(id: String!, role: String!): User! @requireAuth(roles: ["admin"])
   }
 `

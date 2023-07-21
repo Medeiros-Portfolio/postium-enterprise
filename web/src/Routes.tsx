@@ -31,13 +31,16 @@ const Routes = () => {
         <Route path="/signup" page={SignupPage} name="signup" />
         <Route path="/forgot-password" page={ForgotPasswordPage} name="forgotPassword" />
         <Route path="/reset-password" page={ResetPasswordPage} name="resetPassword" />
-        <Private unauthenticated="login" roles="admin">
+        <Private unauthenticated="login" roles={['admin', 'writer']}>
           <Set wrap={ScaffoldLayout} title="Posts" titleTo="posts" buttonLabel="New Post" buttonTo="newPost">
             <Route path="/posts/new" page={PostNewPostPage} name="newPost" />
             <Route path="/posts/{id:Int}/edit" page={PostEditPostPage} name="editPost" />
             <Route path="/posts/{id:Int}" page={PostPostPage} name="post" />
             <Route path="/posts" page={PostPostsPage} name="posts" />
           </Set>
+        </Private>
+        <Private unauthenticated="login" roles={'admin'}>
+          <Route path="/users" page={UsersPage} name="users" />
         </Private>
         <Private unauthenticated="login">
           <Route path="/profile" page={ProfilePage} name="profile" />
