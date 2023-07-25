@@ -27,14 +27,16 @@ describe('users', () => {
       input: {
         email: 'String8493769',
         name: 'String',
-        hashedPassword: 'String',
+        loginToken: 'String',
+        avatar: 'url.com',
+        roles: ['admin'],
         salt: 'String',
       },
     })
 
     expect(result.email).toEqual('String8493769')
     expect(result.name).toEqual('String')
-    expect(result.hashedPassword).toEqual('String')
+    expect(result.loginToken).toEqual('String')
     expect(result.salt).toEqual('String')
   })
 
@@ -42,7 +44,7 @@ describe('users', () => {
     const original = (await user({ id: scenario.user.one.id })) as User
     const result = await updateUser({
       id: original.id,
-      input: { email: 'String1825522' },
+      input: { email: 'String1825522', roles: ['admin'] },
     })
 
     expect(result.email).toEqual('String1825522')

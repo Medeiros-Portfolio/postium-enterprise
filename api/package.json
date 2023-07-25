@@ -9,6 +9,7 @@
     "nodemailer": "^6.9.4"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.1.1",
     "@types/nodemailer": "^6.4.8"
   }
 }

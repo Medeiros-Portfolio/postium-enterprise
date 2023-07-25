@@ -33,6 +33,8 @@ describe('posts', () => {
       id: scenario.post.first.userId,
       roles: ['admin'],
       email: 'test@email.com',
+      name: 'Test User',
+      avatar: 'url.com',
     })
 
     const result = await createPost({

@@ -16,19 +16,19 @@ export default async () => {
         {
           name: 'Rafael Medeiros',
           email: 'rafaelmedrib@gmail.com',
-          password: 'admin',
+          loginToken: 'admin',
           roles: ['admin'],
         },
         {
           name: 'Edson Arantes',
           email: 'edson.arantes@dontfollow.me',
-          password: 'reader',
+          loginToken: 'reader',
           roles: ['reader'],
         },
         {
           name: 'J. R. R. Tolkien',
           email: 'tolkienfromtheshrine@fakemail.com',
-          password: 'writer',
+          loginToken: 'writer',
           roles: ['writer'],
         },
       ],
@@ -103,12 +103,12 @@ export default async () => {
     const userTableIsEmpty = (await db.user.count()) === 0
     if (userTableIsEmpty) {
       for (const user of data.users) {
-        const [hashedPassword, salt] = hashPassword(user.password)
+        const [loginToken, salt] = hashPassword(user.loginToken)
         await db.user.create({
           data: {
             name: user.name,
             email: user.email,
-            hashedPassword,
+            loginToken,
             salt,
             roles: [...user.roles],
           },
