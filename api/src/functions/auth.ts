@@ -51,7 +51,20 @@ export const handler = async (
     // didn't validate their email yet), throw an error and it will be returned
     // by the `logIn()` function from `useAuth()` in the form of:
     // `{ message: 'Error message' }`
-    handler: (user) => {
+    handler: async (user) => {
+      const loginTokenExpiresAt = new Date(user?.loginTokenExpiresAt)
+      const now = new Date()
+
+      if (loginTokenExpiresAt < now) throw 'Login token expired'
+
+      db.user.update({
+        where: { id: user.id },
+        data: {
+          loginTokenExpiresAt: null,
+          salt: null,
+        },
+      })
+
       return user
     },
 
@@ -108,22 +121,23 @@ export const handler = async (
     //
     // If this returns anything else, it will be returned by the
     // `signUp()` function in the form of: `{ message: 'String here' }`.
-    handler: ({ username, hashedPassword, salt, userAttributes }) => {
+    handler: async ({ username, hashedPassword, salt, userAttributes }) => {
       validate(username, 'email', { email: true })
       validate(userAttributes.name, 'name', {
         presence: true,
         length: { minimum: 3 },
       })
 
-      return db.user.create({
+      await db.user.create({
         data: {
           email: username,
           name: userAttributes.name,
-          hashedPassword: hashedPassword,
+          loginToken: hashedPassword,
           salt: salt,
-          // name: userAttributes.name
         },
       })
+
+      return 'User created'
     },
 
     // Include any format checks for password here. Return `true` if the
@@ -154,7 +168,7 @@ export const handler = async (
     authFields: {
       id: 'id',
       username: 'email',
-      hashedPassword: 'hashedPassword',
+      hashedPassword: 'loginToken',
       salt: 'salt',
       resetToken: 'resetToken',
       resetTokenExpiresAt: 'resetTokenExpiresAt',

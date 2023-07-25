@@ -126,7 +126,7 @@ const CommentForm = ({ postId }) => {
             <h3 className="text-center text-3xl font-semibold">Comment</h3>
             <p className="text-center text-sm text-gray-500">
               Please{' '}
-              <a href={routes.login()} className="text-violet-400">
+              <a href={routes.passwordlessAuth()} className="text-violet-400">
                 login
               </a>{' '}
               to comment.

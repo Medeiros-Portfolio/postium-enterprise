@@ -26,11 +26,12 @@ model User {
   name                String
   avatar              String    @default("https://cdn.filestackcontent.com/TMo43YTaQNK6UdY7SSen")
   posts               Post[]
-  hashedPassword      String
-  salt                String
+  loginToken          String
+  loginTokenExpiresAt DateTime?
+  salt                String?
+  roles               String[]  @default(["reader"])
   resetToken          String?
   resetTokenExpiresAt DateTime?
-  roles               String[]  @default(["reader"])
 }
 
 model Contact {

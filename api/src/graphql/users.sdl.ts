@@ -5,7 +5,8 @@ export const schema = gql`
     name: String!
     avatar: String!
     posts: [Post]!
-    hashedPassword: String!
+    loginToken: String!
+    loginTokenExpiresAt: DateTime
     salt: String!
     resetToken: String
     resetTokenExpiresAt: DateTime
@@ -21,7 +22,8 @@ export const schema = gql`
     email: String!
     name: String!
     avatar: String!
-    hashedPassword: String!
+    loginToken: String!
+    loginTokenExpiresAt: DateTime
     salt: String!
     resetToken: String
     resetTokenExpiresAt: DateTime
@@ -32,11 +34,15 @@ export const schema = gql`
     email: String
     name: String
     avatar: String
-    hashedPassword: String
+    loginToken: String
     salt: String
     resetToken: String
     resetTokenExpiresAt: DateTime
     roles: [String]!
+  }
+
+  type UserTokenResponse {
+    message: String!
   }
 
   type Mutation {
@@ -47,5 +53,6 @@ export const schema = gql`
     updateUserAvatar(id: String!, avatar: String!): User! @requireAuth
     deleteUser(id: String!): User! @requireAuth(roles: ["admin"])
     updateRole(id: String!, role: String!): User! @requireAuth(roles: ["admin"])
+    generateLoginToken(email: String!): UserTokenResponse! @skipAuth
   }
 `

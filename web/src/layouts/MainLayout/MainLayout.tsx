@@ -108,7 +108,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
               </>
             ) : (
               <button
-                onClick={() => navigate(routes.login())}
+                onClick={() => navigate(routes.passwordlessAuth())}
                 className="rounded px-8 py-3 font-semibold dark:bg-violet-400 dark:text-gray-900"
               >
                 Log in
@@ -152,7 +152,6 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                   <span className="flex items-center space-x-1">
                     <a
                       rel="noopener noreferrer"
-                      // TODO: add user profile route
                       href={routes.profile()}
                       className="text-xs hover:underline dark:text-gray-400"
                     >
@@ -163,7 +162,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
               </div>
             ) : (
               <button
-                onClick={() => navigate(routes.login())}
+                onClick={() => navigate(routes.passwordlessAuth())}
                 className="rounded px-8 py-3 font-semibold dark:bg-violet-400 dark:text-gray-900"
               >
                 Log in
