@@ -48,7 +48,6 @@ export const schema = gql`
   type Mutation {
     createUser(input: CreateUserInput!): User! @requireAuth
     updateUser(id: String!, input: UpdateUserInput!): User! @requireAuth
-    updateUserEmail(id: String!, email: String!): User! @requireAuth
     updateUserName(id: String!, name: String!): User! @requireAuth
     updateUserAvatar(id: String!, avatar: String!): User! @requireAuth
     deleteUser(id: String!): User! @requireAuth(roles: ["admin"])

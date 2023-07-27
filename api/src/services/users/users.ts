@@ -52,18 +52,6 @@ export const updateUserAvatar: MutationResolvers['updateUserAvatar'] = ({
   })
 }
 
-export const updateUserEmail: MutationResolvers['updateUserEmail'] = ({
-  id,
-  email,
-}) => {
-  validate(email, 'email', { presence: true, email: true })
-
-  return db.user.update({
-    data: { email },
-    where: { id },
-  })
-}
-
 export const updateUserName: MutationResolvers['updateUserName'] = ({
   id,
   name,

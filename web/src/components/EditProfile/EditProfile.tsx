@@ -16,8 +16,6 @@ import { useMutation } from '@redwoodjs/web'
 import {
   UpdateUserAvatarMutation,
   UpdateUserAvatarMutationVariables,
-  UpdateUserEmailMutation,
-  UpdateUserEmailMutationVariables,
   UpdateUserNameMutation,
   UpdateUserNameMutationVariables,
 } from '../../../types/graphql'
@@ -29,14 +27,6 @@ type ProfileProps = {
   name: string
   email: string
 }
-
-const UPDATE_USER_EMAIL = gql`
-  mutation UpdateUserEmailMutation($id: String!, $email: String!) {
-    updateUserEmail(id: $id, email: $email) {
-      id
-    }
-  }
-`
 
 const UPDATE_USER_NAME = gql`
   mutation UpdateUserNameMutation($id: String!, $name: String!) {
@@ -53,9 +43,6 @@ const UPDATE_USER_AVATAR = gql`
     }
   }
 `
-interface UpdateEmailFormValues {
-  email: string
-}
 
 interface UpdateNameFormValues {
   name: string
@@ -69,26 +56,6 @@ const EditProfile = (userProfileProps: ProfileProps) => {
   const formMethods = useForm({ mode: 'onBlur' })
 
   const { currentUser } = useAuth()
-
-  const [updateUserEmail, { loading: emailLoading, error: emailError }] =
-    useMutation<UpdateUserEmailMutation, UpdateUserEmailMutationVariables>(
-      UPDATE_USER_EMAIL,
-      {
-        onCompleted: () => {
-          formMethods.reset()
-          window.location.reload()
-        },
-      }
-    )
-
-  const onSubmitEmailUpdate = (data: UpdateEmailFormValues) => {
-    updateUserEmail({
-      variables: {
-        id: currentUser?.id || '',
-        email: data.email || '',
-      },
-    })
-  }
 
   const [updateUserName, { loading: nameLoading, error: nameError }] =
     useMutation<UpdateUserNameMutation, UpdateUserNameMutationVariables>(
@@ -194,35 +161,6 @@ const EditProfile = (userProfileProps: ProfileProps) => {
             </div>
             <Submit
               disabled={nameLoading}
-              className=" my-3 max-w-xs rounded-md py-4 font-semibold dark:bg-violet-400 dark:text-gray-900"
-            >
-              Update
-            </Submit>
-          </Form>
-          <Form
-            onSubmit={onSubmitEmailUpdate}
-            formMethods={formMethods}
-            className="col-span-full"
-          >
-            <FormError
-              error={emailError}
-              titleStyle={{ opacity: 0 }}
-              listItemClassName="text-red-600 dark:text-red-400"
-            />
-
-            <div className="col-span-4">
-              <Label name="email" className="text-sm">
-                Email
-              </Label>
-              <TextField
-                name="email"
-                placeholder={currentUser.email}
-                className="focus:ri focus:ri w-full rounded-md focus:ring dark:border-gray-700 dark:text-gray-900"
-              />
-              <FieldError name="email" className="text-red-600" />
-            </div>
-            <Submit
-              disabled={emailLoading}
               className=" my-3 max-w-xs rounded-md py-4 font-semibold dark:bg-violet-400 dark:text-gray-900"
             >
               Update

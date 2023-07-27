@@ -13,8 +13,6 @@ const SignUpTokenForm = ({ setEmail, setSignUp }) => {
   const { signUp } = useAuth()
 
   const onSubmit = async (data: SignUpTokenFormProps) => {
-    setEmail(data.email)
-
     const response = await signUp({
       name: data.name,
       username: data.email,
@@ -22,8 +20,16 @@ const SignUpTokenForm = ({ setEmail, setSignUp }) => {
         Math.random().toString(36).substring(2, 15) +
         Math.random().toString(36).substring(2, 15),
     })
-    console.log('response', response)
-    toast.success('User created')
+
+    if (response.error) {
+      toast.error(response.error)
+      return
+    } else {
+      toast.success('User created')
+    }
+
+    setSignUp(false)
+    setEmail(data.email)
   }
 
   return (
@@ -80,7 +86,10 @@ const SignUpTokenForm = ({ setEmail, setSignUp }) => {
           <div className="flex justify-center">
             <span>Already have an account?</span>
             <button
-              onClick={() => setSignUp(false)}
+              onClick={() => {
+                setSignUp(false)
+                setEmail('')
+              }}
               className="dark:via-violet-60 inline px-2 font-medium text-violet-500 hover:text-violet-800"
             >
               Sign In
