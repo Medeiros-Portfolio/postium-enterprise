@@ -24,7 +24,7 @@ const Routes = () => {
         <Route path="/home" page={HomePage} name="home" />
         <Route path="/contact" page={ContactPage} name="contact" />
         <Route path="/about" page={AboutPage} name="about" />
-        <Private unauthenticated="passwordless-auth" roles={['admin', 'writer']}>
+        <Private unauthenticated="passwordlessAuth" roles={['admin', 'writer']}>
           <Set wrap={ScaffoldLayout} title="Posts" titleTo="posts" buttonLabel="New Post" buttonTo="newPost">
             <Route path="/posts/new" page={PostNewPostPage} name="newPost" />
             <Route path="/posts/{id:Int}/edit" page={PostEditPostPage} name="editPost" />
@@ -32,10 +32,10 @@ const Routes = () => {
             <Route path="/posts" page={PostPostsPage} name="posts" />
           </Set>
         </Private>
-        <Private unauthenticated="passwordless-auth" roles={'admin'}>
+        <Private unauthenticated="passwordlessAuth" roles={'admin'}>
           <Route path="/users" page={UsersPage} name="users" />
         </Private>
-        <Private unauthenticated="passwordless-auth">
+        <Private unauthenticated="passwordlessAuth">
           <Route path="/profile" page={ProfilePage} name="profile" />
         </Private>
       </Set>

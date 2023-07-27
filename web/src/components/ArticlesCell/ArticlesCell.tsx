@@ -124,7 +124,7 @@ export const Success = ({ articles }: CellSuccessProps<ArticlesQuery>) => {
                   rel="noopener noreferrer"
                   href={
                     !item?.public && !isAuthenticated
-                      ? routes.login()
+                      ? routes.passwordlessAuth()
                       : routes.article({ id: item.id })
                   }
                   className="text-2xl font-bold hover:underline"
@@ -138,7 +138,7 @@ export const Success = ({ articles }: CellSuccessProps<ArticlesQuery>) => {
                   rel="noopener noreferrer"
                   href={
                     !item?.public && !isAuthenticated
-                      ? routes.login()
+                      ? routes.passwordlessAuth()
                       : routes.article({ id: item.id })
                   }
                   className="hover:underline dark:text-violet-400"
