@@ -11,6 +11,7 @@ const LoginPasswordlessPage = () => {
   const [waitingForCode, setWaitingForCode] = useState(false)
   const [email, setEmail] = useState('')
   const [token, setToken] = useState('')
+  const [signUp, setSignUp] = useState(false)
   const { code, email: userEmail } = useParams()
 
   useEffect(() => {
@@ -28,10 +29,19 @@ const LoginPasswordlessPage = () => {
         description="LoginPasswordless page"
       />
 
-      {!waitingForCode && !email && <SignUpToken setEmail={setEmail} />}
-      {!waitingForCode && email && (
-        <SignInToken email={email} setWaitingForCode={setWaitingForCode} />
+      {!waitingForCode && !email && signUp && (
+        <SignUpToken setEmail={setEmail} setSignUp={setSignUp} />
       )}
+
+      {!waitingForCode && !signUp && (
+        <SignInToken
+          email={email}
+          setWaitingForCode={setWaitingForCode}
+          setSignUp={setSignUp}
+          setEmail={setEmail}
+        />
+      )}
+
       {waitingForCode || token ? (
         <SendTokenForm email={email} token={token} />
       ) : null}

@@ -9,7 +9,7 @@ interface SignUpTokenFormProps {
   email: string
 }
 
-const SignUpTokenForm = ({ setEmail }) => {
+const SignUpTokenForm = ({ setEmail, setSignUp }) => {
   const { signUp } = useAuth()
 
   const onSubmit = async (data: SignUpTokenFormProps) => {
@@ -76,6 +76,17 @@ const SignUpTokenForm = ({ setEmail }) => {
             </div>
           </div>
         </Form>
+        <div className="pt-5">
+          <div className="flex justify-center">
+            <span>Already have an account?</span>
+            <button
+              onClick={() => setSignUp(false)}
+              className="dark:via-violet-60 inline px-2 font-medium text-violet-500 hover:text-violet-800"
+            >
+              Sign In
+            </button>
+          </div>
+        </div>
       </div>
     </>
   )

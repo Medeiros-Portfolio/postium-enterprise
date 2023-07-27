@@ -7,6 +7,10 @@ import { Toaster, toast } from '@redwoodjs/web/toast'
 
 import { useAuth } from 'src/auth'
 
+interface SignInTokenFormProps {
+  email: string
+}
+
 const GENERATE_LOGIN_TOKEN = gql`
   mutation generateLoginToken($email: String!) {
     generateLoginToken(email: $email) {
@@ -15,7 +19,7 @@ const GENERATE_LOGIN_TOKEN = gql`
   }
 `
 
-const SignInTokenForm = ({ setWaitingForCode, email }) => {
+const SignInTokenForm = ({ setWaitingForCode, email, setSignUp, setEmail }) => {
   const [generateLoginToken] = useMutation(GENERATE_LOGIN_TOKEN, {
     onCompleted: () => {
       toast.success('Check your email for a login link')
@@ -23,7 +27,7 @@ const SignInTokenForm = ({ setWaitingForCode, email }) => {
     },
   })
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: SignInTokenFormProps) => {
     const response = await generateLoginToken({
       variables: { email: data.email },
       fetchPolicy: 'no-cache',
@@ -33,6 +37,7 @@ const SignInTokenForm = ({ setWaitingForCode, email }) => {
         toast.error(error.message)
       })
     }
+    setEmail(data.email)
   }
 
   const { isAuthenticated, logIn } = useAuth()
@@ -70,6 +75,13 @@ const SignInTokenForm = ({ setWaitingForCode, email }) => {
                 defaultValue={email}
                 placeholder="john.doe@fakeemail.com"
                 className="w-full rounded-md border px-3 py-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+                validation={{
+                  required: true,
+                  pattern: {
+                    message: 'Please enter a valid email address',
+                    value: /[^@]+@[^.]+\..+/,
+                  },
+                }}
               />
               <FieldError name="email" className="rw-field-error" />
             </div>
@@ -82,6 +94,17 @@ const SignInTokenForm = ({ setWaitingForCode, email }) => {
             </div>
           </div>
         </Form>
+        <div className="pt-5">
+          <div className="flex justify-center">
+            <span>Still dont have an account?</span>
+            <button
+              onClick={() => setSignUp(true)}
+              className="dark:via-violet-60 inline px-2 font-medium text-violet-500 hover:text-violet-800"
+            >
+              Sign Up
+            </button>
+          </div>
+        </div>
       </div>
     </>
   )
