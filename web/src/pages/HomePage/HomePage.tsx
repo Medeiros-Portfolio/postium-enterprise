@@ -19,7 +19,7 @@ const HomePage = () => {
           </p>
           <div className="flex flex-wrap justify-center">
             <button
-              onClick={() => navigate(routes.login())}
+              onClick={() => navigate(routes.articles())}
               className="m-2 rounded px-8 py-3 text-lg font-semibold dark:bg-violet-400 dark:text-gray-900"
             >
               Get started

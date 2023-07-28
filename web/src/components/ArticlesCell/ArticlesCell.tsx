@@ -4,7 +4,6 @@ import { routes } from '@redwoodjs/router'
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 
 import { useAuth } from '../../auth'
-import { truncate } from '../../lib/formatters'
 
 export const QUERY = gql`
   query ArticlesQuery {
@@ -131,7 +130,7 @@ export const Success = ({ articles }: CellSuccessProps<ArticlesQuery>) => {
                 >
                   {item.title}
                 </a>
-                <p className="mt-2">{truncate(item.body)}</p>
+                <p className="mt-2">{item.body}</p>
               </div>
               <div className="mt-4 flex items-center justify-between">
                 <a
